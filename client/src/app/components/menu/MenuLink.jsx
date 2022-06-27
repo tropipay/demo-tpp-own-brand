@@ -1,0 +1,47 @@
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { exec, hasHTTP } from "../../services/util";
+import useCustomMediaQuery from '../../services/CustomMediaQuery.js';
+import "./MenuLink.scss";
+
+function MenuLink(props) {
+  const nav = useNavigate();
+  const { t } = useTranslation();
+  const mq = useCustomMediaQuery();
+  const allowHide = props.allowHide || false;
+
+  function handleClick(item) {
+    if (item.to) {
+      if (!hasHTTP(item.to) && nav && nav.push instanceof Function) {
+        nav(item.to);
+      } else {
+        window.location.href = item.to;
+      }
+    }
+    exec(item.onClick, [item]);
+  }
+
+  const className = props.className || "";
+  const align = props.align
+    ? props.align === "horizontal"
+      ? "box-horizontal"
+      : "box-vertical"
+    : "box-horizontal";
+  const data = props.data && props.data instanceof Array ? props.data : [];
+
+  return (
+    <ul className={`box ${align} ${className} menu-link`}>
+      {data.map((item, i) => (
+        <li key={i} className="menu-link-item" hidden={allowHide && mq.in(item.hidden)} >
+          <span
+            className="menu-link-item-link gray-label"
+            onClick={event => handleClick(item, event)}
+          >
+            {t(item.label)}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+export default MenuLink;

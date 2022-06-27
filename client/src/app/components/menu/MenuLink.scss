@@ -1,0 +1,19 @@
+.menu-link-item {
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.menu-link {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: small;
+
+  li a {
+      text-decoration: none;
+      color: #8986A3;
+      &:hover {
+          color: rgba(#8986A3, 0.4);
+      }
+  }
+}

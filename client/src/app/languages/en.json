@@ -1,0 +1,67 @@
+{
+    "menu": {
+        "home": "Home",
+        "comunity": "Community",
+        "contact": "Contact Us",
+        "help": "Help Center",
+        "signup": "Signup",
+        "login": "Login",
+        "logout": "Exit"
+    },
+    "home": {
+        "name": "Terminal",
+        "btn": {
+            "payment": "Charge",
+            "movement": "Movements"
+        }
+    },
+    "error": {
+        "Unauthorized": "User not authorized or session expired",
+        "required": "This field is required",
+        "email": "This email is not valid",
+        "phone": "Enter a valid phone number",
+        "password": "Must be more than 8 characters with uppercase, lowercase and numbers",
+        "passwordMatch": "Passwords do not match",
+        "amount": "Enter a valid amount (eg 344.50)",
+        "amountmin": "The amount specified must be greater than the minimum defined for this operation, which is ",
+        "minCryptoAmount": "Minimum value {{value}}",
+        "min": "The minimum value required is {{value}}",
+        "adult": "You must be at least 18 years old",
+        "temporarilyDisabled": "Temporarily disabled",
+        "uniqueEmail": "Email in use",
+        "invalidToken": "Invalid Token",
+        "invalidSwift": "invalid SWIFT format",
+        "uniquePhone": "Phone in use",
+        "connection": "The application is not responding, please check your internet connection",
+        "internal": "Internal system error, please contact administrator",
+        "numeric": "Must be a numeric value",
+        "url": "Bad URL",
+        "isSameOrGreaterThanCurrentDate": "Must be equal to or greater than the current date",
+        "regEx": "Invalid input",
+        "userNotFound": "User not found",
+        "voucherCode": "Invalid code",
+        "credentials": "The username and password entered are not valid",
+        "unauthorized": "Unauthorized user",
+        "incompleteRegistration": "Registration not completed",
+        "incompleteOperation": "The operation could not be completed, please try again later",
+        "invalidParameters": "Invalid Parameters",
+        "maxStr": "The maximum number of characters supported is {{value}}",
+        "string": "Must be a value of type text",
+
+        "PC_001": "Error getting the list of Payment Links",
+        "PC_002": "Error obtaining the Payment Link detail",
+        "PC_003": "Invalid Expiration Date",
+        "PC_004": "The Payment link does not exist",
+        "PC_005": "Could not notify client. Please try again.",
+        "PC_006": "The date of service is invalid",
+        "PC_007": "Invalid parameters",
+        "AFR_001": "Sorry, with this charge you exceed the maximum amount allowed on the day.",
+        "AFR_002": "We are currently experiencing a payment processing overload on the platform. We recommend that you try again in a few hours.",
+        "AFR_003": "Sorry, you have already processed the maximum amount allowed per month per user.",
+        "AFR_004": "We are currently experiencing a payment processing overload on the platform. We recommend that you try again in a few hours.",
+        "PR_001": "[We are in Maintenance] At this time it is not possible to perform this action.",
+        "LPC_001": "Closed payment letter",
+        "LPC_002": "The payment letter does not exist",
+        "LPC_003": "Error getting payment letter details"
+    }
+}
