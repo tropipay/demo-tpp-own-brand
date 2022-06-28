@@ -6,7 +6,52 @@
         "help": "Help Center",
         "signup": "Signup",
         "login": "Login",
+        "github": "Github",
         "logout": "Exit"
+    },
+    "signup": {
+        "form": {
+            "title": "User Signup",
+            "subtitle": "Register form",
+            "concept": {
+                "placeholder": "Concept",
+                "label": "Concept"
+            },
+            "amount": {
+                "placeholder": "Amount",
+                "label": "Amount"
+            },
+            "description": {
+                "placeholder": "Description",
+                "label": "Description"
+            },
+            "expirationDays": {
+                "placeholder": "Expiration Days",
+                "label": "Expiration Days"
+            },
+            "currency": {
+                "placeholder": "Currency",
+                "label": "Currency"
+            },
+            "reference": {
+                "placeholder": "Charge Reference",
+                "label": "Charge Reference"
+            },
+            "reason": {
+                "placeholder": "Reason",
+                "label": "Reason",
+                "default": "Product purchase",
+                "des": "Reason Description"
+            },
+            "lang": {
+                "placeholder": "Language",
+                "label": "Language"
+            },
+            "btn": {
+                "next": "Next",
+                "back": "Cancel"
+            }
+        }
     },
     "home": {
         "name": "Terminal",

@@ -1,10 +1,10 @@
 const menu = {
     title: 'MyAPP',
     items: [
-        { label: 'menu.home', to: '/home' },
         { label: 'menu.login', to: '/login' },
-        { label: 'menu.help', to: '/help' },
-        { label: 'menu.contact', to: '/home' }
+        { label: 'menu.signup', to: '/signup' },
+        { label: 'menu.help', to: 'https://tpp.stoplight.io' },
+        { label: 'menu.github', to: 'https://github.com/tropipay' }
     ]
 }
 

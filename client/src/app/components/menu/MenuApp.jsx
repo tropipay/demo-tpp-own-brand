@@ -14,18 +14,30 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { exec, hasHTTP } from "../../services/util";
 
 const drawerWidth = 240;
 
 function MenuApp(props) {
   const { t } = useTranslation();
-  const { window, items=null, title='' } = props;
+  const { items = null, title = '' } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const nav = useNavigate();
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
+  function handleClick(item) {
+    if (item.to) {
+      if (!hasHTTP(item.to) && nav && nav.push instanceof Function) {
+        nav(item.to);
+      } else {
+        window.location.href = item.to;
+      }
+    }
+    exec(item.onClick, [item]);
+  }
+
   const navItems = items || [{ label: 'Home', to: '/home' }];
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = undefined; // window !== undefined ? () => window().document.body : undefined;
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}> {title} </Typography>
@@ -33,7 +45,7 @@ function MenuApp(props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item.label} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }} onClick={() => nav(item.to)}>
+            <ListItemButton sx={{ textAlign: 'center' }} onClick={event => handleClick(item, event)}>
               <ListItemText primary={t(item.label)} />
             </ListItemButton>
           </ListItem>
@@ -64,7 +76,7 @@ function MenuApp(props) {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item.label} sx={{ color: '#fff' }} onClick={() => nav(item.to)}>
+              <Button key={item.label} sx={{ color: '#fff' }} onClick={event => handleClick(item, event)}>
                 {t(item.label)}
               </Button>
             ))}
