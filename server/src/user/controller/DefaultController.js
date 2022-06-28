@@ -14,37 +14,84 @@ class DefaultController extends KsMf.app.Controller {
         //... Define logger service as global for his controller
         this.logger = this.helper.get('logger');
         //... Define user service as global for his controller
-        this.srvExternal = this.helper.get('MyAPI');
+        this.srvTropiPay = this.helper.get('TropiPay');
     }
 
     /**
-     * @description get safe JSON decode
-     * @param {OBJECT} payload 
-     * @param {STRING} key 
-     * @returns 
-     */
-    getObj(payload, key) {
-        try {
-            return payload[key] ? JSON.parse(payload[key]) : null;
-        }
-        catch (error) {
-            return null;
-        }
-    }
-
-    /**
-     * @description get users
+     * @description Obtain login URL and rediret to it
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/ZG9jOjEwMDY4ODkw-private-label-login
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/fcf2fd5ed270b-login-workflow-obtain-login-url
      * @param {OBJECT} req 
      * @param {OBJECT} res 
      * @param {OBJECT} next 
      */
-    async list(req, res, next) {
+    async signin(req, res, next) {
+        const opt = await this.srvTropiPay.getMerchanAccessURL(
+            'https://webhook.site/2a262eed-e12a-475d-9a19-a57134292957'
+        );
+        if (opt && opt.url) {
+            res.writeHead(307, { "Location": opt.url });
+            res.end();
+        }
+        res.status(200).json(opt);
+    }
+
+    /**
+     * @description signin callback 
+     * @param {OBJECT} req 
+     * @param {OBJECT} res 
+     * @param {OBJECT} next 
+     */
+    async login(req, res, next) {
+        console.log(req.query);
+        console.log(req.body);
+        res.status(200).json(req.body);
+    }
+
+    /**
+     * @description signup users
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/ZG9jOjEwMDY4ODkx-the-sign-up-process
+     * @param {OBJECT} req 
+     * @param {OBJECT} res 
+     * @param {OBJECT} next 
+     */
+    async signup(req, res, next) {
         try {
-            const page = parseInt(req.query.page) || 1;
-            const size = req.query.size;
-            const filter = req.query.filter;
-            const sort = req.query.sort;
-            const result = await this.srvExternal.getUsers(page, size, filter, sort);
+
+            const payload = {
+                "clientTypeId": 0,
+                "email": "tieso85@mailinator.com",
+                "password": "mypassword",
+                "t_c_version": "string",
+                "state": 1,
+                "kycLevel": null,
+                "name": "Tieso",
+                "surname": "Perez",
+                "birthDate": "1980-12-22",
+                "occupationId": 0,
+                "otherOccupationDetail": "string",
+                "isPublicOffice": true,
+                "birthCountryId": "string",
+                "documentId": "string",
+                "lang": "es",
+                "groupId": 0,
+                "address": "string",
+                "countryDestinationId": "string",
+                "city": "Cienfuegos",
+                "province": "Cienfuegos",
+                "postalCode": "10400",
+                "phone": "string",
+                "callingCode": "string",
+                "validationCode": "string"
+            };
+
+            const emailValidation = await this.srvTropiPay.getMerchanUserEmailValidation(payload);
+            if(emailValidation.response === 'OK') {
+                res.json({
+                    data: emailValidation
+                })
+            }
+
             res.json(result);
         } catch (error) {
             this.logger.error('list', error);
@@ -57,12 +104,8 @@ class DefaultController extends KsMf.app.Controller {
         }
     }
 
-    async select(req, res, next) {
-        res.status(200).json({
-            name: 'Julia Robert Anderson',
-            email: 'julia.robert@gmail.com',
-            age: 12
-        });
-    }
+
+
+
 }
 module.exports = DefaultController;
