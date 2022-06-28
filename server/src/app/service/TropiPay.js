@@ -449,35 +449,183 @@ class TropiPay extends SrvAPI {
 
     /**
      * @description get access token 
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/ZG9jOjEwMDY4ODg5-authentication
      * @returns {STRING}
      */
     getMerchanAccessToken() {
-        return '';
+        const token = process.env.MERCHANT_CODE + ':' + process.env.MERCHANT_APIKEY;
+        return this.encode(token);
     }
 
     /**
      * @description obtaining the url of the platform login form
      *              https://tpp.stoplight.io/docs/tropipay-api-doc/fcf2fd5ed270b-login-workflow-obtain-login-url
-     * @param {STRING} redirectUrl 
-     * @param {STRING} extraCSS 
-     * @returns 
+     * @param {STRING} redirectUrl Set url to which you want to redirect once the login process has been successfully completed
+     * @param {STRING} extraCSS login form Look and Feel can be customized by the injection of CSS styles
+     * @param {STRING} redirectType defines the mode in which the login form interacts with its container 
+     * @returns {OBJECT} 
+     * {
+     *      "url": "https://www.tropipay.com/m-login/eyJtZXJjaGFudElkIjoxLCJzaWduYXR1cm"
+     * }
      */
-    async getMerchanAccessURL(redirectUrl, extraCSS) {
-        redirectUrl = redirectUrl || "https://www.merchant.com/homr";
-        extraCSS = extraCSS || "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        return await this.req({
+    async getMerchanAccessURL(redirectUrl, extraCSS, redirectType = 1) {
+        const res = await this.req({
             url: '/api/v2/access',
             method: 'post',
             headers: {
-                'Authorization':  this.getMerchanAccessToken()
+                'Authorization': this.getMerchanAccessToken()
             },
             data: {
-                redirectType: 1,
+                redirectType,
                 extraCSS,
                 redirectUrl
             }
         });
+        return res && res.data ? res.data : res;
     }
+
+    /**
+     * @description get all merchant settings 
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/651fdf716535a-obtaining-list-of-settings
+     * @returns {ARRAY} 
+     * [
+     *       {
+     *           "key": "publicPrice",
+     *           "value": "2.5",
+     *           "section": "public",
+     *           "state": "1",
+     *           "createdAt": "2021-03-18T20:10:37.670Z",
+     *           "updatedAt": "2021-03-18T20:10:37.670Z"
+     *       }
+     * ]
+     */
+    getSettings() {
+        return this.req({
+            url: '/api/v2/merchant/settings',
+            method: 'get',
+            headers: {
+                'Authorization': this.getMerchanAccessToken()
+            }
+        });
+    }
+
+    /**
+     * @description This is the very first step in order to subscribe a new user, this allows you to validate user email
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/e05b5fb19b563-sign-up-workflow-step-1-send-email-validation-code-to-user
+     * @param {OBJECT|STRING} data as string could by the email to verify
+     * @param {STRING} data.email The email to verify
+     * @param {STRING} data.name User Name to show in email
+     * @param {STRING} data.lang The email body language
+     * @returns {OBJECT} 
+     * {
+     *      "message": "Security Code Sent",
+     *      "response": "OK"
+     * }
+     */
+    getMerchanUserEmailValidation(data) {
+        const email = typeof (data) === 'string' ? data : data.email;
+        const payload = { email };
+        if (data && data.name) {
+            payload['name'] = data.name;
+        }
+        if (data && data.lang) {
+            payload['lang'] = data.lang;
+        }
+        return this.req({
+            url: '/api/v2/access/send_email_code',
+            method: 'post',
+            headers: {
+                'Authorization': this.getMerchanAccessToken()
+            },
+            data: payload
+        });
+    }
+
+    /**
+     * @descripcion This endpoint allows you to add a new user to the system
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/b7f28e23f697b-sign-up-workflow-step-2-register-user-data
+     * @param {OBJECT} data 
+     * @param {NUMBER} data.clientTypeId
+     * @param {STRING} data.email
+     * @param {STRING} data.password
+     * @param {STRING} data.t_c_version
+     * @param {NUMBER} data.state
+     * @param {STRING} data.kycLevel
+     * @param {STRING} data.name
+     * @param {STRING} data.surname
+     * @param {STRING} data.birthDate
+     * @param {NUMBER} data.occupationId
+     * @param {STRING} data.otherOccupationDetail
+     * @param {BOOLEAN} data.isPublicOffice
+     * @param {STRING} data.birthCountryId
+     * @param {STRING} data.documentId
+     * @param {STRING} data.lang
+     * @param {NUMBER} data.groupId
+     * @param {STRING} data.address
+     * @param {STRING} data.countryDestinationId
+     * @param {STRING} data.city
+     * @param {STRING} data.province
+     * @param {STRING} data.postalCode
+     * @param {STRING} data.phone
+     * @param {STRING} data.callingCode
+     * @param {STRING} data.validationCode
+     * @returns {OBJECT} 
+     * { "user": "66291db0-77a2-11eb-a197-a1853f6310fa" }
+     */
+    getMerchanUserSignup(data) {
+        return this.req({
+            url: '/api/v2/access/signup',
+            method: 'post',
+            headers: {
+                'Authorization': this.getMerchanAccessToken()
+            },
+            data
+        });
+    }
+
+    /**
+     * @description send a secret code to user phone
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/eeb029acc46d3-sign-up-workflow-step-3-send-phone-validation-code-to-user
+     * @param {OBJECT} data 
+     * @param {STRING} data.callingCode The corresponding country phone code
+     * @param {STRING} data.phone The phone number tu send SMS to
+     * @param {STRING} data.lang The message language
+     * @returns 
+     */
+    sendPhoneCode(data) {
+        return this.req({
+            url: '/api/v2/access/send_phone_code',
+            method: 'post',
+            headers: {
+                'Authorization': this.getMerchanAccessToken()
+            },
+            data
+        });
+    }
+
+    /**
+     * @description validate some user phone number through a secret code previously sent to user by SMS
+     *              https://tpp.stoplight.io/docs/tropipay-api-doc/ad6c865ca40cb-sign-up-workflow-step-4-validate-user-phone-number
+     * @param {OBJECT} data 
+     * @param {STRING} data.callingCode The corresponding country phone code
+     * @param {STRING} data.phone The phone number tu send SMS to
+     * @param {STRING} data.securityPhoneCode token on develop enviroment will be 123456
+     * @returns 
+     */
+    sendPhoneToken(data) {
+        return this.req({
+            url: '/api/v2/access/validate_phone',
+            method: 'post',
+            headers: {
+                'Authorization': this.getMerchanAccessToken()
+            },
+            data
+        });
+    }
+
+    
+
+
 }
 
 module.exports = TropiPay;

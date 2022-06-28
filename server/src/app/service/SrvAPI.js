@@ -82,6 +82,10 @@ class SrvAPI {
             data
         });
     }
+
+    encode(data, to='base64', from='ascii') {
+        return Buffer.from(data, from).toString(to);
+    }
 }
 
 module.exports = SrvAPI;

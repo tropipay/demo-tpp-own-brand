@@ -13,7 +13,22 @@ class UserModule extends KsMf.app.Module {
      */
      initConfig() {
         this.prefix = "/api/v1" + this.prefix;
-        super.initConfig();
+        this.routes = [{
+            route: this.prefix + "/",
+            controller: 'DefaultController',
+            action: 'signin',
+            method: 'get'
+        }, {
+            route: this.prefix + "/callback/login",
+            controller: 'DefaultController',
+            action: 'login',
+            method: 'post'
+        }, {
+            route: this.prefix + "/callback/login",
+            controller: 'DefaultController',
+            action: 'signup',
+            method: 'post'
+        }]; 
     }
 }
 module.exports = UserModule;
