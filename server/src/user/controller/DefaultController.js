@@ -56,13 +56,13 @@ class DefaultController extends KsMf.app.Controller {
      * @param {OBJECT} next 
      */
     async validate(req, res, next) {
-        const payload = req.body;        
+        const payload = req.body;
         let result = {};
         //... SINGUP STEP 2: email verification and register 
         if (payload.resource == 'email') {
             result = await this.srvTropiPay.getMerchanSignup(payload);
             console.log('getMerchanSignup', result);
-            if(!result || result.error) {
+            if (!result || result.error) {
                 return res.status(500).json({
                     error: {
                         code: 'invalidToken',
@@ -74,18 +74,18 @@ class DefaultController extends KsMf.app.Controller {
             result = await this.srvTropiPay.sendPhoneCode(payload);
             console.log('sendPhoneCode', result);
         } else {
-        //... SINGUP STEP 5: phone verification and user validation 
+            //... SINGUP STEP 5: phone verification and user validation 
             result = await this.srvTropiPay.sendPhoneToken(payload);
             console.log('sendPhoneToken', result);
         }
-        if(!result || result.error) {
+        if (!result || result.error) {
             return res.status(500).json({
                 error: {
                     code: 'invalidToken',
                     message: result.error
                 }
             });
-        }else{
+        } else {
             res.json(result);
         }
     }
@@ -98,7 +98,9 @@ class DefaultController extends KsMf.app.Controller {
      */
     async sendCode(req, res, next) {
         const payload = req.body;
-        const result = await this.srvTropiPay.sendEmailCode(payload);
+        const result = payload.phone ?
+            await this.srvTropiPay.sendPhoneCode(payload) :
+            await this.srvTropiPay.sendEmailCode(payload);
         res.json(result);
     }
 

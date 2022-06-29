@@ -34,9 +34,12 @@ function RegisterPage() {
         //... email validation 
         () => (
             <Step2Page
-                onResend={()=>{
-                    console.log('Step2Page-onResend');
-                    srvUser.action.sendCode(user);
+                onResend={() => {
+                    srvUser.action.sendCode({
+                        email: user,
+                        name: user.name,
+                        lang: user.lang
+                    });
                 }}
                 submit={async payload => {
                     const content = { ...user, validationCode: payload.code };
@@ -49,8 +52,12 @@ function RegisterPage() {
         //... phone validation 
         () => (
             <Step3Page
-                onResend={()=>{
-
+                onResend={() => {
+                    srvUser.action.sendCode({
+                        callingCode: user.callingCode, 
+                        phone: user.phone, 
+                        lang: user.lang
+                    });
                 }}
                 submit={payload => {
                     payload.resource = 'phone';
