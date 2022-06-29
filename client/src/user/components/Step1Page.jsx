@@ -21,13 +21,11 @@ function Step1Page(props) {
 
     const { handleSubmit, control, watch } = useForm({
         defaultValues: {
-            amount: "",
             currency: "EUR",
-            concept: "",
             lang: "es",
             reason: 9,
-            description: t("signup.title"),
-            reasonDes: t("signup.title"),
+            description: t("signup.form.title"),
+            reasonDes: t("signup.form.title"),
             reference: ""
         }
     });
@@ -172,11 +170,16 @@ function Step1Page(props) {
             <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormTextField
                     control={control}
-                    name="birthDate"
+                    name="birthCountryId"
                     size="medium"
-                    label={t("signup.form.birthDate.label")}
+                    value="0"
+                    label={t("signup.form.birthCountryId.label")}
+                    rules={{
+                        required: Validation.required(t)
+                    }}
                 />
             </Grid>
+            
 
             <Grid item xs={12}>
                 <FormSelect
@@ -197,8 +200,67 @@ function Step1Page(props) {
                     control={control}
                     name="reasonDes"
                     size="medium"
-                    label={t("signup.form.reason.des")}
-                //rules={{ required: t("error.required") }}
+                    label={t("signup.form.reasonDes.label")}
+                />
+            </Grid>
+
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
+                <FormTextField
+                    control={control}
+                    name="address"
+                    size="medium"
+                    label={t("signup.form.address.label")}
+                    rules={{
+                        required: Validation.required(t)
+                    }}
+                />
+            </Grid>
+
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
+                <FormTextField
+                    control={control}
+                    name="city"
+                    size="medium"
+                    label={t("signup.form.city.label")}
+                    rules={{
+                        required: Validation.required(t)
+                    }}
+                />
+            </Grid>
+
+            <Grid item xs={12}>
+                <FormTextField
+                    control={control}
+                    name="province"
+                    size="medium"
+                    label={t("signup.form.province.label")}
+                    rules={{
+                        required: Validation.required(t)
+                    }}
+                />
+            </Grid>
+
+            <Grid item xs={12}>
+                <FormTextField
+                    control={control}
+                    name="postalCode"
+                    size="medium"
+                    label={t("signup.form.postalCode.label")}
+                    rules={{
+                        required: Validation.required(t)
+                    }}
+                />
+            </Grid>
+
+            <Grid item xs={12}>
+                <FormTextField
+                    control={control}
+                    name="countryDestinationId"
+                    size="medium"
+                    label={t("signup.form.countryDestinationId.label")}
+                    rules={{
+                        required: Validation.required(t)
+                    }}
                 />
             </Grid>
 
@@ -211,7 +273,6 @@ function Step1Page(props) {
                     size="medium"
                     label={t("signup.form.description.label")}
                     placeholder={t("signup.form.description.label")}
-                //rules={{ required: t("error.required") }}
                 />
             </Grid>
 

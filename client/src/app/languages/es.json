@@ -13,6 +13,38 @@
         "form": {
             "title": "Registro de usuarios",
             "subtitle": "Formulario de registro",
+            "birthDate": {
+                "placeholder": "Fecha de Nacimiento",
+                "label": "Fecha de Nacimiento"
+            },
+            "birthCountryId": {
+                "placeholder": "País de Nacimiento",
+                "label": "País de Nacimiento"
+            },
+            "reasonDes": {
+                "placeholder": "Descripción de ocupación",
+                "label": "Descripción de ocupación"
+            },
+            "address": {
+                "placeholder": "Dirección",
+                "label": "Dirección"
+            },
+            "city": {
+                "placeholder": "Ciudad",
+                "label": "Ciudad"
+            },
+            "province": {
+                "placeholder": "Provincia",
+                "label": "Provincia"
+            },
+            "postalCode": {
+                "placeholder": "Código postal",
+                "label": "Código postal"
+            },
+            "countryDestinationId": {
+                "placeholder": "País de residencia",
+                "label": "País de residencia"
+            },
             "concept": {
                 "placeholder": "Concepto",
                 "label": "Concepto"

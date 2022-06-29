@@ -33,8 +33,10 @@ function RegisterPage() {
             <Step1Page
                 submit={async payload => {
                     srvUser.action.update(payload);
-                    srvUser.action.sendCode({ target: payload.email, resource: 'email' });
-                    stepper.next();
+                    srvUser.action.sendCode(payload, data => {
+                        console.log('>>>>>Step1Page>>>>', data);
+                        stepper.next();
+                    });
                 }}
             />
         ),
@@ -42,12 +44,11 @@ function RegisterPage() {
         () => (
             <Step2Page
                 submit={async payload => {
-                    const data = { ...user, validationCode: payload.code };
-                    console.log('big-pyload', data, user);
-                    srvUser.action.validate(payload, data => {
-                        console.log('SIIIIIIIIII', data);
+                    const content = { ...user, validationCode: payload.code };
+                    srvUser.action.validate(content, data => {
+                        console.log('<<<<<<Step2Page<<<<<<', data);
+                        stepper.next();
                     });
-                    stepper.next();
                 }}
             />
         ),
@@ -55,6 +56,7 @@ function RegisterPage() {
         () => (
             <Step3Page
                 submit={payload => {
+                    payload.resource = 'phone';
                     srvUser.action.validate(payload, 'phone');
                     stepper.next();
                 }}

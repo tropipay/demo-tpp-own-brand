@@ -522,8 +522,8 @@ class TropiPay extends SrvAPI {
      *      "response": "OK"
      * }
      */
-    getMerchanUserEmailValidation(data) {
-        const email = typeof (data) === 'string' ? data : data.email;
+     sendEmailCode(data) {
+        const email = typeof (data) === 'string' ? data : (data.email || data.target );
         const payload = { email };
         if (data && data.name) {
             payload['name'] = data.name;
@@ -574,7 +574,7 @@ class TropiPay extends SrvAPI {
      * @returns {OBJECT} 
      * { "user": "66291db0-77a2-11eb-a197-a1853f6310fa" }
      */
-    getMerchanUserSignup(data) {
+    getMerchanSignup(data) {
         return this.req({
             url: '/api/v2/access/signup',
             method: 'post',
@@ -624,9 +624,6 @@ class TropiPay extends SrvAPI {
             data
         });
     }
-
-    
-
 
 }
 
