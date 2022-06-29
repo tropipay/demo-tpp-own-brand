@@ -13,7 +13,8 @@ export const slice = createSlice({
     name,
     initialState: {
         data: null,
-        error: null
+        error: null,
+        loginUrl: '#'
     },
     reducers: {
         onError: (state, action) => {
@@ -27,6 +28,17 @@ export const slice = createSlice({
                     state.data = action.payload;
                 }
             }
+        },
+        onLoginUrl: (state, action) => {
+            console.log('onLoginUrl', action.payload);
+            if (action.payload) {
+                if (action.payload.error) {
+                    state.error = action.payload.error;
+                } else {
+                    state.loginUrl = action.payload.url;
+                }
+            }
+            console.log('onLoginUrl-state', state.loginUrl);
         },
         onDelete: (state, action) => {
             state.data = null;
@@ -46,6 +58,20 @@ const Service = {
     action: {
         delete: () => dependencies.dispatch(slice.actions.onDelete()),
         update: (data) => dependencies.dispatch(slice.actions.onUpdate(data)),
+        getLoginUrl: () => dependencies.dispatch((dispatch) => {
+            httpReq({
+                url: "/api/v1/user/signin?redirect=none",
+                method: "GET"
+            }, dispatch)
+                .then(data => {
+                    if (!data || data.error) {
+                        dispatch(slice.actions.onError(data.error));
+                    } else {
+                        dispatch(slice.actions.onLoginUrl(data));
+                    }
+                })
+                .catch(error => dispatch(slice.actions.onError(error.message)));
+        }),
         load: () => dependencies.dispatch((dispatch) => {
             httpReq({
                 url: "/api/v1/user/1",
@@ -97,6 +123,7 @@ const Service = {
         window.location.href = "/";
     },
     selector: {
+        loginUrl: () => dependencies.useSelector((state) => state[name].loginUrl),
         data: () => dependencies.useSelector((state) => state[name].data),
         error: () => dependencies.useSelector((state) => state[name].error)
     }

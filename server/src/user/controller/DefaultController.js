@@ -26,12 +26,17 @@ class DefaultController extends KsMf.app.Controller {
      * @param {OBJECT} next 
      */
     async signin(req, res, next) {
+        const redirect = req.query.redirect;
         const opt = await this.srvTropiPay.getMerchanAccessURL(
             'https://webhook.site/2a262eed-e12a-475d-9a19-a57134292957'
         );
         if (opt && opt.url) {
-            res.writeHead(307, { "Location": opt.url });
-            res.end();
+            if (redirect === 'none') {
+                return res.status(200).json(opt);
+            } else {
+                res.writeHead(307, { "Location": opt.url });
+                return res.end();
+            }
         }
         res.status(200).json(opt);
     }
