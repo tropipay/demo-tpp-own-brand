@@ -1,13 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { Button, Grid } from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
 
 import FormTextField from "../../app/components/formcontrol/FormTextField";
 import FormSelect from "../../app/components/formcontrol/FormSelect";
 import ContentHeader from "../../app/components/header/ContentHeader";
 import Validation from "../../app/services/validation";
-import Currency from "../../app/services/currency";
 import ClientType from "../../app/services/ClientType";
 
 import Lang from "../../app/services/lang";
@@ -130,8 +128,7 @@ function Step1Page(props) {
                     label={t("signup.form.callingCode.label")}
                     rules={{
                         required: Validation.required(t),
-                        maxLength: Validation.maxStrLength(t),
-                        pattern: Validation.number(t)
+                        maxLength: Validation.maxStrLength(t, 4)
                     }}
                 />
             </Grid>
@@ -142,10 +139,15 @@ function Step1Page(props) {
                     name="phone"
                     size="medium"
                     label={t("signup.form.phone.label")}
+                    rules={{
+                        required: Validation.required(t),
+                        maxLength: Validation.maxStrLength(t),
+                        pattern: Validation.number(t)
+                    }}
                 />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormSelect
                     control={control}
                     name="lang"
@@ -181,7 +183,7 @@ function Step1Page(props) {
             </Grid>
             
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormSelect
                     control={control}
                     name="occupationId"
@@ -195,7 +197,7 @@ function Step1Page(props) {
                 />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormTextField
                     control={control}
                     name="reasonDes"
@@ -228,7 +230,7 @@ function Step1Page(props) {
                 />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormTextField
                     control={control}
                     name="province"
@@ -240,7 +242,7 @@ function Step1Page(props) {
                 />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormTextField
                     control={control}
                     name="postalCode"
@@ -252,7 +254,7 @@ function Step1Page(props) {
                 />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormTextField
                     control={control}
                     name="countryDestinationId"
@@ -264,7 +266,7 @@ function Step1Page(props) {
                 />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormTextField
                     control={control}
                     name="description"
@@ -276,7 +278,7 @@ function Step1Page(props) {
                 />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <Button
                     variant="contained"
                     className="btn-full-width page-payment-btn-first-margin"

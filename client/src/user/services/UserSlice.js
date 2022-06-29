@@ -51,10 +51,14 @@ const Service = {
                 url: "/api/v1/user/1",
                 method: "GET"
             }, dispatch)
-                .then(data => dispatch(slice.actions.onUpdate(data)))
-                .catch(error => {
-                    dispatch(slice.actions.onError(error.message))
-                });
+                .then(data => {
+                    if (!data || data.error) {
+                        dispatch(slice.actions.onError(data.error));
+                    } else {
+                        dispatch(slice.actions.onUpdate(data));
+                    }
+                })
+                .catch(error => dispatch(slice.actions.onError(error.message)));
         }),
         validate: (payload, callback = null) => dependencies.dispatch((dispatch) => {
             if (!payload) return false;
@@ -65,12 +69,13 @@ const Service = {
                 data: payload
             }, dispatch)
                 .then(data => {
-                    exec(callback, [data]);
-                    return dispatch(slice.actions.onUpdate(data));
+                    if (!data || data.error) {
+                        dispatch(slice.actions.onError(data.error));
+                    } else {
+                        exec(callback, [data]);
+                    }
                 })
-                .catch(error => {
-                    dispatch(slice.actions.onError(error.message))
-                });
+                .catch(error => dispatch(slice.actions.onError(error.message)));
         }),
         sendCode: (payload, callback = null) => dependencies.dispatch((dispatch) => {
             httpReq({
@@ -79,11 +84,13 @@ const Service = {
                 data: payload
             }, dispatch)
                 .then(data => {
-                    exec(callback, [data]);
+                    if (!data || data.error) {
+                        dispatch(slice.actions.onError(data.error));
+                    } else {
+                        exec(callback, [data]);
+                    }
                 })
-                .catch(error => {
-                    dispatch(slice.actions.onError(error.message))
-                });
+                .catch(error => dispatch(slice.actions.onError(error.message)));
         }),
     },
     destroy: () => {

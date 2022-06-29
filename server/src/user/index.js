@@ -24,11 +24,6 @@ class UserModule extends KsMf.app.Module {
             action: 'login',
             method: 'post'
         }, {
-            route: this.prefix + "/callback/login",
-            controller: 'DefaultController',
-            action: 'signup',
-            method: 'post'
-        }, {
             route: this.prefix + "/validate",
             controller: 'DefaultController',
             action: 'validate',

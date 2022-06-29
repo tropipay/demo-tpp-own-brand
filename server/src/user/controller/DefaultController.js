@@ -49,79 +49,53 @@ class DefaultController extends KsMf.app.Controller {
     }
 
     /**
-     * @description signup users
+     * @description SINGUP users
      *              https://tpp.stoplight.io/docs/tropipay-api-doc/ZG9jOjEwMDY4ODkx-the-sign-up-process
      * @param {OBJECT} req 
      * @param {OBJECT} res 
      * @param {OBJECT} next 
      */
-    async signup(req, res, next) {
-        try {
-
-            const payload = {
-                "clientTypeId": 0,
-                "email": "tieso85@mailinator.com",
-                "password": "mypassword",
-                "t_c_version": "string",
-                "state": 1,
-                "kycLevel": null,
-                "name": "Tieso",
-                "surname": "Perez",
-                "birthDate": "1980-12-22",
-                "occupationId": 0,
-                "otherOccupationDetail": "string",
-                "isPublicOffice": true,
-                "birthCountryId": "string",
-                "documentId": "string",
-                "lang": "es",
-                "groupId": 0,
-                "address": "string",
-                "countryDestinationId": "string",
-                "city": "Cienfuegos",
-                "province": "Cienfuegos",
-                "postalCode": "10400",
-                "phone": "string",
-                "callingCode": "string",
-                "validationCode": "string"
-            };
-
-            const emailValidation = await this.srvTropiPay.getMerchanUserEmailValidation(payload);
-            if (emailValidation.response === 'OK') {
-                res.json({
-                    data: emailValidation
-                })
-            }
-
-            res.json(result);
-        } catch (error) {
-            this.logger.error('list', error);
-            res.status(404).json({
-                error: {
-                    message: error.message,
-                    name: error.name
-                }
-            });
-        }
-    }
-
     async validate(req, res, next) {
         const payload = req.body;        
         let result = {};
+        //... SINGUP STEP 2: email verification and register 
         if (payload.resource == 'email') {
             result = await this.srvTropiPay.getMerchanSignup(payload);
             console.log('getMerchanSignup', result);
             if(!result || result.error) {
-                return res.status(500).json(result);
+                return res.status(500).json({
+                    error: {
+                        code: 'invalidToken',
+                        message: result.error
+                    }
+                });
             }
+            //... SINGUP STEP 4: send code to user phone for it verification 
             result = await this.srvTropiPay.sendPhoneCode(payload);
             console.log('sendPhoneCode', result);
         } else {
+        //... SINGUP STEP 5: phone verification and user validation 
             result = await this.srvTropiPay.sendPhoneToken(payload);
             console.log('sendPhoneToken', result);
         }
-        res.json(result);
+        if(!result || result.error) {
+            return res.status(500).json({
+                error: {
+                    code: 'invalidToken',
+                    message: result.error
+                }
+            });
+        }else{
+            res.json(result);
+        }
     }
 
+    /**
+     * @description SINGUP STEP 1: send code to user email for it verification 
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
     async sendCode(req, res, next) {
         const payload = req.body;
         const result = await this.srvTropiPay.sendEmailCode(payload);

@@ -125,7 +125,8 @@
             },
             "btn": {
                 "next": "Next",
-                "back": "Back"
+                "back": "Back",
+                "resend": "Reenviar"
             }
         },
         "phone": {
@@ -137,7 +138,8 @@
             },
             "btn": {
                 "next": "Next",
-                "back": "Back"
+                "back": "Back",
+                "resend": "Reenviar"
             }
         }
     },
