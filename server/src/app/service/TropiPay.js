@@ -522,8 +522,8 @@ class TropiPay extends SrvAPI {
      *      "response": "OK"
      * }
      */
-    getMerchanUserEmailValidation(data) {
-        const email = typeof (data) === 'string' ? data : data.email;
+     sendEmailCode(data) {
+        const email = typeof (data) === 'string' ? data : (data.email || data.target );
         const payload = { email };
         if (data && data.name) {
             payload['name'] = data.name;
@@ -547,16 +547,13 @@ class TropiPay extends SrvAPI {
      * @param {OBJECT} data 
      * @param {NUMBER} data.clientTypeId
      * @param {STRING} data.email
-     * @param {STRING} data.password
-     * @param {STRING} data.t_c_version
-     * @param {NUMBER} data.state
-     * @param {STRING} data.kycLevel
      * @param {STRING} data.name
      * @param {STRING} data.surname
+     * @param {STRING} data.password
+     * 
      * @param {STRING} data.birthDate
      * @param {NUMBER} data.occupationId
      * @param {STRING} data.otherOccupationDetail
-     * @param {BOOLEAN} data.isPublicOffice
      * @param {STRING} data.birthCountryId
      * @param {STRING} data.documentId
      * @param {STRING} data.lang
@@ -567,12 +564,17 @@ class TropiPay extends SrvAPI {
      * @param {STRING} data.province
      * @param {STRING} data.postalCode
      * @param {STRING} data.phone
+     * 
+     * @param {STRING} data.t_c_version
+     * @param {NUMBER} data.state
+     * @param {STRING} data.kycLevel
+     * @param {BOOLEAN} data.isPublicOffice
      * @param {STRING} data.callingCode
      * @param {STRING} data.validationCode
      * @returns {OBJECT} 
      * { "user": "66291db0-77a2-11eb-a197-a1853f6310fa" }
      */
-    getMerchanUserSignup(data) {
+    getMerchanSignup(data) {
         return this.req({
             url: '/api/v2/access/signup',
             method: 'post',
@@ -622,9 +624,6 @@ class TropiPay extends SrvAPI {
             data
         });
     }
-
-    
-
 
 }
 

@@ -86,7 +86,7 @@ class DefaultController extends KsMf.app.Controller {
             };
 
             const emailValidation = await this.srvTropiPay.getMerchanUserEmailValidation(payload);
-            if (emailValidation.response === 'OK') {
+            if(emailValidation.response === 'OK') {
                 res.json({
                     data: emailValidation
                 })
@@ -103,30 +103,5 @@ class DefaultController extends KsMf.app.Controller {
             });
         }
     }
-
-    async validate(req, res, next) {
-        const payload = req.body;        
-        let result = {};
-        if (payload.resource == 'email') {
-            result = await this.srvTropiPay.getMerchanSignup(payload);
-            console.log('getMerchanSignup', result);
-            if(!result || result.error) {
-                return res.status(500).json(result);
-            }
-            result = await this.srvTropiPay.sendPhoneCode(payload);
-            console.log('sendPhoneCode', result);
-        } else {
-            result = await this.srvTropiPay.sendPhoneToken(payload);
-            console.log('sendPhoneToken', result);
-        }
-        res.json(result);
-    }
-
-    async sendCode(req, res, next) {
-        const payload = req.body;
-        const result = await this.srvTropiPay.sendEmailCode(payload);
-        res.json(result);
-    }
-
 }
 module.exports = DefaultController;

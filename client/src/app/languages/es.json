@@ -6,7 +6,148 @@
         "login": "Entrar",
         "signup": "Registrarse",
         "help": "Centro de Ayuda",
+        "github": "Github",
         "logout": "Salir"
+    },
+    "signup": {
+        "form": {
+            "title": "Registro de usuarios",
+            "subtitle": "Formulario de registro",
+            "birthDate": {
+                "placeholder": "Fecha de Nacimiento",
+                "label": "Fecha de Nacimiento"
+            },
+            "birthCountryId": {
+                "placeholder": "País de Nacimiento",
+                "label": "País de Nacimiento"
+            },
+            "reasonDes": {
+                "placeholder": "Descripción de ocupación",
+                "label": "Descripción de ocupación"
+            },
+            "address": {
+                "placeholder": "Dirección",
+                "label": "Dirección"
+            },
+            "city": {
+                "placeholder": "Ciudad",
+                "label": "Ciudad"
+            },
+            "province": {
+                "placeholder": "Provincia",
+                "label": "Provincia"
+            },
+            "postalCode": {
+                "placeholder": "Código postal",
+                "label": "Código postal"
+            },
+            "countryDestinationId": {
+                "placeholder": "País de residencia",
+                "label": "País de residencia"
+            },
+            "concept": {
+                "placeholder": "Concepto",
+                "label": "Concepto"
+            },
+            "clientTypeId": {
+                "placeholder": "Tipo de cliente",
+                "label": "Tipo de cliente"
+            },
+            "email": {
+                "placeholder": "Email",
+                "label": "Cuenta de correo electrónico"
+            },
+            "name": {
+                "placeholder": "Nombre",
+                "label": "Nombre"
+            },
+            "surname": {
+                "placeholder": "Apellidos",
+                "label": "Apellidos"
+            },
+            "phone": {
+                "placeholder": "Teléfono",
+                "label": "Teléfono"
+            },
+            "callingCode": {
+                "placeholder": "Código",
+                "label": "Código de país"
+            },
+            "password": {
+                "placeholder": "Contraseña",
+                "label": "Contraseña"
+            },
+            "occupationId": {
+                "placeholder": "Occupación",
+                "label": "Occupación"
+            },
+            "amount": {
+                "placeholder": "Importe",
+                "label": "Importe"
+            },
+            "description": {
+                "placeholder": "Descripción",
+                "label": "Descripción"
+            },
+            "expirationDays": {
+                "placeholder": "Descripción",
+                "label": "Descripción"
+            },
+            "currency": {
+                "placeholder": "Moneda",
+                "label": "Moneda"
+            },
+            "reference": {
+                "placeholder": "Referencia de Cobro",
+                "label": "Referencia de Cobro"
+            },
+            "reason": {
+                "placeholder": "Motivo",
+                "label": "Motivo",
+                "default": "Compra de producto",
+                "des": "Descripción del Motivo"
+            },
+            "lang": {
+                "placeholder": "Idioma",
+                "label": "Idioma"
+            },
+            "btn": {
+                "next": "Siguiente",
+                "back": "Cancelar"
+            }
+        },
+        "email": {
+            "title": "Registro de usuarios",
+            "subtitle": "Verificacion de correo electrónico",
+            "code": {
+                "placeholder": "Código de verificación",
+                "label": "Código de verificación"
+            },
+            "btn": {
+                "next": "Siguiente",
+                "back": "Atras"
+            }
+        },
+        "phone": {
+            "title": "Registro de usuarios",
+            "subtitle": "Verificacion de teléfono",
+            "code": {
+                "placeholder": "Código de verificación",
+                "label": "Código de verificación"
+            },
+            "btn": {
+                "next": "Siguiente",
+                "back": "Atras"
+            }
+        },
+        "show": {
+            "title": "Registro de usuarios",
+            "subtitle": "Registro completado",
+            "btn": {
+                "next": "Siguiente",
+                "back": "Atras"
+            }
+        }
     },
     "home": {
         "name": "Terminal",

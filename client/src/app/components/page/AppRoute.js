@@ -5,9 +5,10 @@ import FrontPage from "./FrontPage.jsx";
 import HomePage from "./HomePage.jsx";
 import Page from "./Page.jsx";
 
-import ProvideAuth from '../../../security/components/provide.auth';
 import MessageApp from "../message/MessageApp.jsx";
+import ProvideAuth from '../../../security/components/provide.auth';
 import LoginPage from "../../../security/components/login.jsx";
+import RegisterPage from "../../../user/components/RegisterPage.jsx"
 
 export default function AppRoute() {
 
@@ -22,6 +23,7 @@ export default function AppRoute() {
         <Route exact path="/" element={<FrontPage />} />
         <Route exact path="/home" element={<Page><HomePage /></Page>} />
         <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/signup" element={<RegisterPage />} />
 
         <Route exact path='/' render={() => (<FrontPage />)} />
         <Route path='*' exact={true} render={() => (<Navigate to="/" />)} />
