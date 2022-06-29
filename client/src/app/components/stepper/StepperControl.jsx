@@ -49,6 +49,7 @@ function StepperControl() {
     }
   };
   const del = (pos) => delete state.steps[pos];
+  const total = () => state.steps.length;
 
   useEffect(() => {
     if (state.event instanceof Function) {
@@ -65,7 +66,7 @@ function StepperControl() {
     back,
     go,
     index,
-    total: state.steps.length
+    total
   }
 }
 

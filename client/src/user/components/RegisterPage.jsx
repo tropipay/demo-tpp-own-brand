@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import StepperControl from "../../app/components/stepper/StepperControl";
-import srvReason from "../../app/services/ReasonSlice";
 import srvUser from "../../user/services/UserSlice";
 
 import Step1Page from "./Step1Page";
@@ -16,15 +15,8 @@ function RegisterPage() {
     const nav = useNavigate();
     const stepper = StepperControl();
 
-    srvReason.setDependency(useDispatch, useSelector);
     srvUser.setDependency(useDispatch, useSelector);
-
-    const reasons = srvReason.selector.data();
     const user = srvUser.selector.data();
-
-    if (!reasons || reasons.length < 1) {
-        srvReason.action.load();
-    }
 
     //... define components by step
     const steps = [
@@ -34,7 +26,6 @@ function RegisterPage() {
                 submit={async payload => {
                     srvUser.action.update(payload);
                     srvUser.action.sendCode(payload, data => {
-                        console.log('>>>>>Step1Page>>>>', data);
                         stepper.next();
                     });
                 }}
@@ -43,10 +34,16 @@ function RegisterPage() {
         //... email validation 
         () => (
             <Step2Page
+                onResend={() => {
+                    srvUser.action.sendCode({
+                        email: user,
+                        name: user.name,
+                        lang: user.lang
+                    });
+                }}
                 submit={async payload => {
                     const content = { ...user, validationCode: payload.code };
                     srvUser.action.validate(content, data => {
-                        console.log('<<<<<<Step2Page<<<<<<', data);
                         stepper.next();
                     });
                 }}
@@ -55,10 +52,21 @@ function RegisterPage() {
         //... phone validation 
         () => (
             <Step3Page
+                onResend={() => {
+                    srvUser.action.sendCode({
+                        callingCode: user.callingCode, 
+                        phone: user.phone, 
+                        lang: user.lang
+                    });
+                }}
                 submit={payload => {
                     payload.resource = 'phone';
-                    srvUser.action.validate(payload, 'phone');
-                    stepper.next();
+                    payload.securityPhoneCode = payload.code;
+                    payload.callingCode = user ? user.callingCode : null;
+                    payload.phone = user ? user.phone : null;
+                    srvUser.action.validate(payload, data => {
+                        stepper.next();
+                    });
                 }}
             />
         ),
@@ -83,7 +91,7 @@ function RegisterPage() {
             case 1:
                 return "email";
 
-            case 1:
+            case 2:
                 return "phone";
 
             default:
@@ -100,7 +108,8 @@ function RegisterPage() {
                 className="btn-full-width"
                 size="large"
                 onClick={() => {
-                    if (stepper.index > 0 && stepper.total > stepper.index) {
+                    console.log('stepper', stepper.index, stepper.total());
+                    if (stepper.index > 0 && stepper.index < stepper.total()) {
                         stepper.back();
                     } else {
                         nav("/");

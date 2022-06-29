@@ -7,8 +7,8 @@ import Page from "./Page.jsx";
 
 import MessageApp from "../message/MessageApp.jsx";
 import ProvideAuth from '../../../security/components/provide.auth';
-import LoginPage from "../../../security/components/login.jsx";
 import RegisterPage from "../../../user/components/RegisterPage.jsx"
+import LoginPage from "../../../user/components/LoginPage.jsx";
 
 export default function AppRoute() {
 
