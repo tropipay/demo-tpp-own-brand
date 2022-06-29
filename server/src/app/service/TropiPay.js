@@ -547,16 +547,13 @@ class TropiPay extends SrvAPI {
      * @param {OBJECT} data 
      * @param {NUMBER} data.clientTypeId
      * @param {STRING} data.email
-     * @param {STRING} data.password
-     * @param {STRING} data.t_c_version
-     * @param {NUMBER} data.state
-     * @param {STRING} data.kycLevel
      * @param {STRING} data.name
      * @param {STRING} data.surname
+     * @param {STRING} data.password
+     * 
      * @param {STRING} data.birthDate
      * @param {NUMBER} data.occupationId
      * @param {STRING} data.otherOccupationDetail
-     * @param {BOOLEAN} data.isPublicOffice
      * @param {STRING} data.birthCountryId
      * @param {STRING} data.documentId
      * @param {STRING} data.lang
@@ -567,6 +564,11 @@ class TropiPay extends SrvAPI {
      * @param {STRING} data.province
      * @param {STRING} data.postalCode
      * @param {STRING} data.phone
+     * 
+     * @param {STRING} data.t_c_version
+     * @param {NUMBER} data.state
+     * @param {STRING} data.kycLevel
+     * @param {BOOLEAN} data.isPublicOffice
      * @param {STRING} data.callingCode
      * @param {STRING} data.validationCode
      * @returns {OBJECT} 

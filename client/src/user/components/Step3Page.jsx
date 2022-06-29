@@ -6,7 +6,7 @@ import FormTextField from "../../app/components/formcontrol/FormTextField";
 import ContentHeader from "../../app/components/header/ContentHeader";
 import Validation from "../../app/services/validation";
 
-function Step2Page(props) {
+function Step3Page(props) {
     const { t } = useTranslation();
 
     const { handleSubmit, control } = useForm({
@@ -25,8 +25,8 @@ function Step2Page(props) {
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <ContentHeader
-                    title={t("signup.email.title")}
-                    subtitle={t("signup.email.subtitle")}
+                    title={t("signup.phone.title")}
+                    subtitle={t("signup.phone.subtitle")}
                     className="box-label-center box-margin-bottom-2"
                     classNameTitle="box-label-bold"
                     classNameSubtitle="label-size-md"
@@ -38,7 +38,7 @@ function Step2Page(props) {
                     control={control}
                     name="code"
                     size="medium"
-                    label={t("signup.email.code.label")}
+                    label={t("signup.phone.code.label")}
                     rules={{
                         required: Validation.required(t),
                         maxLength: Validation.maxStrLength(t),
@@ -56,11 +56,11 @@ function Step2Page(props) {
                     style={{ marginTop: "1rem", width: '100%' }}
                     onClick={handleSubmit(submit)}
                 >
-                    {t("signup.email.btn.next")}
+                    {t("signup.phone.btn.next")}
                 </Button>
             </Grid>
         </Grid>
     )
 }
 
-export default Step2Page;
+export default Step3Page;

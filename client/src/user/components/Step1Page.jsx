@@ -8,6 +8,7 @@ import FormSelect from "../../app/components/formcontrol/FormSelect";
 import ContentHeader from "../../app/components/header/ContentHeader";
 import Validation from "../../app/services/validation";
 import Currency from "../../app/services/currency";
+import ClientType from "../../app/services/ClientType";
 
 import Lang from "../../app/services/lang";
 import srvReason from "../../app/services/ReasonSlice";
@@ -30,16 +31,19 @@ function Step1Page(props) {
             reference: ""
         }
     });
-    const watchFields = watch({ "amount": "amount", "currency": "currency", "description": "description", "concept": "concept", "lang": "lang", "reason": "reason", "reference": "reference" });
+
+    const watchFields = watch({
+        "email": "email",
+        "password": "password",
+        "phone": "phone",
+        "lang": "lang"
+    });
 
     function isValidForm(watchFields) {
-        const mandatory = watchFields.amount !== "" &&
-            watchFields.concept !== "" &&
-            watchFields.currency !== "" &&
-            //watchFields.description !== "" &&
-            watchFields.lang !== "" &&
-            watchFields.reason !== "";
-        return /*advanced ? mandatory && watchFields.reference !== "" :*/ mandatory;
+        const mandatory = watchFields.email !== "" &&
+            watchFields.password !== "" &&
+            watchFields.phone !== "";
+        return mandatory;
     }
 
     const submit = data => {
@@ -63,12 +67,12 @@ function Step1Page(props) {
             <Grid item xs={12} sm={7}>
                 <FormTextField
                     control={control}
-                    name="amount"
+                    name="email"
                     size="medium"
-                    label={t("signup.form.amount.label")}
+                    label={t("signup.form.email.label")}
                     rules={{
                         required: Validation.required(t),
-                        pattern: Validation.number(t)
+                        pattern: Validation.email(t)
                     }}
                 />
             </Grid>
@@ -76,23 +80,23 @@ function Step1Page(props) {
             <Grid item xs={12} sm={5}>
                 <FormSelect
                     control={control}
-                    name="currency"
+                    name="clientTypeId"
                     defaultValue={watchFields.currency}
                     size="medium"
                     fullWidth
-                    label={t("signup.form.currency.label")}
-                    placeholder={t("signup.form.currency.label")}
+                    label={t("signup.form.clientTypeId.label")}
+                    placeholder={t("signup.form.clientTypeId.label")}
                     rules={{ required: t("error.required") }}
-                    options={Currency.list()}
+                    options={ClientType.list()}
                 />
             </Grid>
 
             <Grid item xs={12}>
                 <FormTextField
                     control={control}
-                    name="concept"
+                    name="name"
                     size="medium"
-                    label={t("signup.form.concept.label")}
+                    label={t("signup.form.name.label")}
                     rules={{
                         required: Validation.required(t),
                         maxLength: Validation.maxStrLength(t),
@@ -104,35 +108,42 @@ function Step1Page(props) {
             <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormTextField
                     control={control}
-                    name="reference"
+                    name="surname"
                     size="medium"
-                    label={t("signup.form.reference.label")}
-                //rules={{ required: t("error.required") }}
+                    label={t("signup.form.surname.label")}
                 />
             </Grid>
 
-            <Grid item xs={12}>
-                <FormSelect
-                    control={control}
-                    name="reason"
-                    size="medium"
-                    value="1"
-                    fullWidth
-                    defaultValue={watchFields.reason}
-                    label={t("signup.form.reason.label")}
-                    placeholder={t("signup.form.reason.label")}
-                    //rules={{ required: t("error.required") }}
-                    options={getItems(reasons)}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormTextField
                     control={control}
-                    name="reasonDes"
+                    name="password"
+                    type="password"
                     size="medium"
-                    label={t("signup.form.reason.des")}
-                //rules={{ required: t("error.required") }}
+                    label={t("signup.form.password.label")}
+                />
+            </Grid>
+
+            <Grid item xs={12} sm={3} style={{ marginTop: "1.5rem" }}>
+                <FormTextField
+                    control={control}
+                    name="callingCode"
+                    size="medium"
+                    label={t("signup.form.callingCode.label")}
+                    rules={{
+                        required: Validation.required(t),
+                        maxLength: Validation.maxStrLength(t),
+                        pattern: Validation.number(t)
+                    }}
+                />
+            </Grid>
+
+            <Grid item xs={12} sm={9} style={{ marginTop: "1.5rem" }}>
+                <FormTextField
+                    control={control}
+                    name="phone"
+                    size="medium"
+                    label={t("signup.form.phone.label")}
                 />
             </Grid>
 
@@ -145,8 +156,49 @@ function Step1Page(props) {
                     label={t("signup.form.lang.label")}
                     placeholder={t("signup.form.lang.label")}
                     keys={{ label: "label", value: "lang" }}
-                    //rules={{ required: t("error.required") }}
                     options={Lang.getSupported()}
+                />
+            </Grid>
+
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
+                <FormTextField
+                    control={control}
+                    name="birthDate"
+                    size="medium"
+                    label={t("signup.form.birthDate.label")}
+                />
+            </Grid>
+
+            <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
+                <FormTextField
+                    control={control}
+                    name="birthDate"
+                    size="medium"
+                    label={t("signup.form.birthDate.label")}
+                />
+            </Grid>
+
+            <Grid item xs={12}>
+                <FormSelect
+                    control={control}
+                    name="occupationId"
+                    size="medium"
+                    value="1"
+                    fullWidth
+                    defaultValue={watchFields.reason}
+                    label={t("signup.form.occupationId.label")}
+                    placeholder={t("signup.form.occupationId.label")}
+                    options={getItems(reasons)}
+                />
+            </Grid>
+
+            <Grid item xs={12}>
+                <FormTextField
+                    control={control}
+                    name="reasonDes"
+                    size="medium"
+                    label={t("signup.form.reason.des")}
+                //rules={{ required: t("error.required") }}
                 />
             </Grid>
 
@@ -167,10 +219,10 @@ function Step1Page(props) {
                 <Button
                     variant="contained"
                     className="btn-full-width page-payment-btn-first-margin"
-                    size="medium"
+                    size="large"
                     color="primary"
                     disabled={!isValidForm(watchFields)}
-                    style={{ marginTop: "1rem" }}
+                    style={{ marginTop: "1rem", width: '100%' }}
                     onClick={handleSubmit(submit)}
                 >
                     {t("signup.form.btn.next")}

@@ -64,7 +64,8 @@ function StepperControl() {
     next,
     back,
     go,
-    index
+    index,
+    total: state.steps.length
   }
 }
 

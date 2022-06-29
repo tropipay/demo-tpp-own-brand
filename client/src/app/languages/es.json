@@ -17,6 +17,38 @@
                 "placeholder": "Concepto",
                 "label": "Concepto"
             },
+            "clientTypeId": {
+                "placeholder": "Tipo de cliente",
+                "label": "Tipo de cliente"
+            },
+            "email": {
+                "placeholder": "Email",
+                "label": "Cuenta de correo electrónico"
+            },
+            "name": {
+                "placeholder": "Nombre",
+                "label": "Nombre"
+            },
+            "surname": {
+                "placeholder": "Apellidos",
+                "label": "Apellidos"
+            },
+            "phone": {
+                "placeholder": "Teléfono",
+                "label": "Teléfono"
+            },
+            "callingCode": {
+                "placeholder": "Código",
+                "label": "Código de país"
+            },
+            "password": {
+                "placeholder": "Contraseña",
+                "label": "Contraseña"
+            },
+            "occupationId": {
+                "placeholder": "Occupación",
+                "label": "Occupación"
+            },
             "amount": {
                 "placeholder": "Importe",
                 "label": "Importe"
@@ -50,6 +82,38 @@
             "btn": {
                 "next": "Siguiente",
                 "back": "Cancelar"
+            }
+        },
+        "email": {
+            "title": "Registro de usuarios",
+            "subtitle": "Verificacion de correo electrónico",
+            "code": {
+                "placeholder": "Código de verificación",
+                "label": "Código de verificación"
+            },
+            "btn": {
+                "next": "Siguiente",
+                "back": "Atras"
+            }
+        },
+        "phone": {
+            "title": "Registro de usuarios",
+            "subtitle": "Verificacion de teléfono",
+            "code": {
+                "placeholder": "Código de verificación",
+                "label": "Código de verificación"
+            },
+            "btn": {
+                "next": "Siguiente",
+                "back": "Atras"
+            }
+        },
+        "show": {
+            "title": "Registro de usuarios",
+            "subtitle": "Registro completado",
+            "btn": {
+                "next": "Siguiente",
+                "back": "Atras"
             }
         }
     },

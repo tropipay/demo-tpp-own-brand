@@ -86,7 +86,7 @@ class DefaultController extends KsMf.app.Controller {
             };
 
             const emailValidation = await this.srvTropiPay.getMerchanUserEmailValidation(payload);
-            if (emailValidation.response === 'OK') {
+            if(emailValidation.response === 'OK') {
                 res.json({
                     data: emailValidation
                 })
@@ -103,16 +103,5 @@ class DefaultController extends KsMf.app.Controller {
             });
         }
     }
-
-    async validate(req, res, next) {
-        const payload = req.body;
-        res.json(payload);
-    }
-
-    async sendCode(req, res, next) {
-        const payload = req.body;
-        res.json(payload);
-    }
-
 }
 module.exports = DefaultController;

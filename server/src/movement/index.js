@@ -7,7 +7,7 @@
  * @version    	1.0
  * */
 const KsMf = require('ksmf');
-class UserModule extends KsMf.app.Module {
+class MovementModule extends KsMf.app.Module {
     /**
      * @description define custom url
      */
@@ -28,19 +28,7 @@ class UserModule extends KsMf.app.Module {
             controller: 'DefaultController',
             action: 'signup',
             method: 'post'
-        }, {
-            route: this.prefix + "/validate",
-            controller: 'DefaultController',
-            action: 'validate',
-            method: 'post'
-        }, {
-            route: this.prefix + "/send/code",
-            controller: 'DefaultController',
-            action: 'sendCode',
-            method: 'post'
         }]; 
-
-        
     }
 }
-module.exports = UserModule;
+module.exports = MovementModule;

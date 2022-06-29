@@ -13,9 +13,41 @@
         "form": {
             "title": "User Signup",
             "subtitle": "Register form",
+            "email": {
+                "placeholder": "Email",
+                "label": "User Account Email"
+            },
+            "name": {
+                "placeholder": "Name",
+                "label": "Name"
+            },
+            "surname": {
+                "placeholder": "Surname",
+                "label": "Surname"
+            },
+            "password": {
+                "placeholder": "Password",
+                "label": "Password"
+            },
+            "occupationId": {
+                "placeholder": "Occupation",
+                "label": "Occupation"
+            },
+            "phone": {
+                "placeholder": "Phone",
+                "label": "phone"
+            },
+            "callingCode": {
+                "placeholder": "Country Code",
+                "label": "Phone Country Code"
+            },
             "concept": {
                 "placeholder": "Concept",
                 "label": "Concept"
+            },
+            "clientTypeId": {
+                "placeholder": "Client Type",
+                "label": "Client Type"
             },
             "amount": {
                 "placeholder": "Amount",
@@ -50,6 +82,30 @@
             "btn": {
                 "next": "Next",
                 "back": "Cancel"
+            }
+        },
+        "email": {
+            "title": "User Signup",
+            "subtitle": "Email verification code",
+            "code": {
+                "placeholder": "Verification code",
+                "label": "Verification code"
+            },
+            "btn": {
+                "next": "Next",
+                "back": "Back"
+            }
+        },
+        "phone": {
+            "title": "User Signup",
+            "subtitle": "Phone verification code",
+            "code": {
+                "placeholder": "Verification code",
+                "label": "Verification code"
+            },
+            "btn": {
+                "next": "Next",
+                "back": "Back"
             }
         }
     },
