@@ -10,18 +10,35 @@ import ClientType from "../../app/services/ClientType";
 
 import Lang from "../../app/services/lang";
 import srvReason from "../../app/services/ReasonSlice";
+import srvData from "../../user/services/DataSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 
 function Step1Page(props) {
     const { t } = useTranslation();
     srvReason.setDependency(useDispatch, useSelector);
-    const reasons = srvReason.selector.data();
+    srvData.setDependency(useDispatch, useSelector);
+    
+    const countries = srvData.selector.countries();
+    const occupations = srvData.selector.occupations();
+    const locations = srvData.selector.locations();
+
+    if (countries.length === 0) {
+        srvData.action.getCountries();
+    }
+    if (occupations.length === 0) {
+        srvData.action.getOccupations();
+    }
+    if (locations.length === 0) {
+        srvData.action.getLocations();
+    }
 
     const { handleSubmit, control, watch } = useForm({
         defaultValues: {
             currency: "EUR",
             lang: "es",
-            reason: 9,
+            reason: 1,
+            birthCountryId: 1,
             description: t("signup.form.title"),
             reasonDes: t("signup.form.title"),
             reference: ""
@@ -170,18 +187,19 @@ function Step1Page(props) {
             </Grid>
 
             <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
-                <FormTextField
+                <FormSelect
                     control={control}
                     name="birthCountryId"
                     size="medium"
-                    value="0"
+                    value="1"
+                    fullWidth
+                    defaultValue={watchFields.reason}
                     label={t("signup.form.birthCountryId.label")}
-                    rules={{
-                        required: Validation.required(t)
-                    }}
+                    placeholder={t("signup.form.birthCountryId.label")}
+                    options={getItems(countries)}
                 />
             </Grid>
-            
+
 
             <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
                 <FormSelect
@@ -193,7 +211,7 @@ function Step1Page(props) {
                     defaultValue={watchFields.reason}
                     label={t("signup.form.occupationId.label")}
                     placeholder={t("signup.form.occupationId.label")}
-                    options={getItems(reasons)}
+                    options={getItems(occupations)}
                 />
             </Grid>
 
@@ -219,14 +237,16 @@ function Step1Page(props) {
             </Grid>
 
             <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
-                <FormTextField
+                <FormSelect
                     control={control}
                     name="city"
                     size="medium"
+                    value="1"
+                    fullWidth
+                    defaultValue={watchFields.reason}
                     label={t("signup.form.city.label")}
-                    rules={{
-                        required: Validation.required(t)
-                    }}
+                    placeholder={t("signup.form.city.label")}
+                    options={getItems(locations)}
                 />
             </Grid>
 
@@ -255,14 +275,16 @@ function Step1Page(props) {
             </Grid>
 
             <Grid item xs={12} style={{ marginTop: "1.5rem" }}>
-                <FormTextField
+                <FormSelect
                     control={control}
                     name="countryDestinationId"
                     size="medium"
+                    value="1"
+                    fullWidth
+                    defaultValue={watchFields.reason}
                     label={t("signup.form.countryDestinationId.label")}
-                    rules={{
-                        required: Validation.required(t)
-                    }}
+                    placeholder={t("signup.form.countryDestinationId.label")}
+                    options={getItems(countries)}
                 />
             </Grid>
 

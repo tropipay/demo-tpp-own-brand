@@ -33,9 +33,26 @@ class UserModule extends KsMf.app.Module {
             controller: 'DefaultController',
             action: 'sendCode',
             method: 'post'
+        }, {
+            //...  /api/v1/user/data/country
+            route: this.prefix + "/data/country",
+            controller: 'DataController',
+            action: 'getCountry',
+            method: 'get'
+        }, {
+            //...  /api/v1/user/data/occupations
+            route: this.prefix + "/data/occupations",
+            controller: 'DataController',
+            action: 'getOccupations',
+            method: 'get'
+        }, {
+            //...  /api/v1/user/data/locations
+            route: this.prefix + "/data/locations",
+            controller: 'DataController',
+            action: 'getLocations',
+            method: 'get'
         }]; 
 
-        
     }
 }
 module.exports = UserModule;

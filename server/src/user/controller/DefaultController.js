@@ -54,6 +54,20 @@ class DefaultController extends KsMf.app.Controller {
     }
 
     /**
+     * @description SINGUP STEP 1: send code to user email for it verification 
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} next 
+     */
+    async sendCode(req, res, next) {
+        const payload = req.body;
+        const result = payload.phone ?
+            await this.srvTropiPay.sendPhoneCode(payload) :
+            await this.srvTropiPay.sendEmailCode(payload);
+        res.json(result);
+    }
+
+    /**
      * @description SINGUP users
      *              https://tpp.stoplight.io/docs/tropipay-api-doc/ZG9jOjEwMDY4ODkx-the-sign-up-process
      * @param {OBJECT} req 
@@ -93,20 +107,6 @@ class DefaultController extends KsMf.app.Controller {
         } else {
             res.json(result);
         }
-    }
-
-    /**
-     * @description SINGUP STEP 1: send code to user email for it verification 
-     * @param {*} req 
-     * @param {*} res 
-     * @param {*} next 
-     */
-    async sendCode(req, res, next) {
-        const payload = req.body;
-        const result = payload.phone ?
-            await this.srvTropiPay.sendPhoneCode(payload) :
-            await this.srvTropiPay.sendEmailCode(payload);
-        res.json(result);
     }
 
 }
