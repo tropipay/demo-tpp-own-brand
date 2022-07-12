@@ -625,6 +625,59 @@ class TropiPay extends SrvAPI {
         });
     }
 
+    /**
+     * @description get list of countries
+     * @returns {ARRAY} [
+     *      { 
+     *          "id":44,
+     *          "name":"Afghanistan",
+     *          "sepaZone":false,
+     *          "state":1,  
+     *          "slug":"AF",
+     *          "slugn":"004",
+     *          "callingCode":93,
+     *          "isDestination":false,
+     *          "currentCurrency":null,
+     *          "isFavorite":false,
+     *          "position":null
+     *      }
+     * ]
+     */
+    getCountries() {
+        return this.req({ url: '/api/countries', method: 'GET' });
+    }
+
+    /**
+     * @description get list of locations
+     * @returns {ARRAY} [
+     *      {
+     *          "name":"Cienfuegos",
+     *          "code":"CFG",
+     *          "minicipalities":[{"name":"Abreus","code":"ABREUS"}]
+     *      }
+     * ]
+     */
+    getLocations(country=null) {
+        return this.req({ url: '/api/countries/locations', method: 'GET' });
+    }
+
+    /**
+     * @description get list of occupations
+     * @returns {ARRAY} [
+     *  {
+     *      "id":38,
+     *      "name":"Abogado",
+     *      "paymentEntityId":"38",
+     *      "slug":"LAWYER",    
+     *      "isFavorite":false,
+     *      "position":null
+     *  }
+     * ]
+     */
+    getOccupations() {
+        return this.req({ url: '/api/occupations', method: 'GET' });
+    }
+    
 }
 
 module.exports = TropiPay;
